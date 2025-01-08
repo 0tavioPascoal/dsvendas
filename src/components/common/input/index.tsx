@@ -1,4 +1,4 @@
-import { InputProps } from "@/@types/inputs/InputProps";
+import { InputProps } from "@/types/components/inputs/InputProps";
 import React from "react";
 
 export const Input: React.FC<InputProps> = ({

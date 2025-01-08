@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "./menu";
-import { LayoutProps } from "@/@types/layout/layoutprops";
+import { LayoutProps } from "@/types/components/layout/layoutprops";
 
 export const Layout: React.FC<LayoutProps> = (props:LayoutProps) => {
   return(

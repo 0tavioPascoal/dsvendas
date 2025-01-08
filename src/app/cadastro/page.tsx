@@ -3,23 +3,24 @@
 import { Input } from "@/components/common/input";
 import { Layout } from "@/components/Layout/layout";
 import { useState } from "react";
+import { useProductService } from "@/context/product/productContext";
+import { Product } from "@/types/models/product/product";
 
 export default function Cadastro() {
+  const service = useProductService();
   const [sku, setSku] = useState("");
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
 
   const submit = () => {
-    const produto = {
+    const produto: Product = {
       sku,
-      price,
+      price: parseFloat(price) ,
       name,
       description,
     };
-
-    
-    console.log(produto);
+      service.save(produto).then(productResponse => console.log(productResponse))
   };
 
   return (

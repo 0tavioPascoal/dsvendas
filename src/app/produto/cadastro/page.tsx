@@ -26,7 +26,12 @@ export default function Cadastro() {
       name,
       description,
     };
-    service
+    if(id){
+      service
+      .updatedProduct(produto)
+      .then(productResponse => console.log("Updtaded"))
+    }else{
+      service
       .save(produto)
       .then((productResponse) => { 
         if ( productResponse.id!== undefined &&  productResponse.created!== undefined && productResponse.modified !== undefined ) {
@@ -35,6 +40,8 @@ export default function Cadastro() {
           setModified(productResponse.modified)
         }
       });
+    }
+    
   };
 
   return (
@@ -119,9 +126,8 @@ export default function Cadastro() {
         <p className="control">
           <button
             className="button is-primary is-rounded is-hovered is-focused is-active"
-            onClick={submit}
-          >
-            Submit
+            onClick={submit}>
+            {id ? "Updated" : "Save"}
           </button>
         </p>
         <p className="control">

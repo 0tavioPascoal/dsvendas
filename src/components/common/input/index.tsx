@@ -9,10 +9,10 @@ export const Input: React.FC<InputProps> = ({
   ...inputProps
 }: InputProps) => {
   return (
-    <div className={`field column ${columnClass}`}>
+    <div className={`field column  ${columnClass} `}>
       <label className="label" htmlFor="sku">{label}</label>
       <div className="control">
-        <input className="input"
+        <input className={`input  is-rounded `}
           id={id} 
           {...inputProps}
           onChange={(e) => onChange?.(e.target.value)}

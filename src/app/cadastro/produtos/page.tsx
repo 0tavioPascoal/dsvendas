@@ -12,19 +12,61 @@ export default function Cadastro() {
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [description, setDesc] = useState("");
+  const [id, setId] = useState("");
+  const [created, setCreated] = useState("");
+  const [modified, setModified] = useState("");
 
   const submit = () => {
     const produto: Product = {
+      id,
+      created,
+      modified,
       sku,
-      price: parseFloat(price) ,
+      price: parseFloat(price),
       name,
       description,
     };
-      service.save(produto).then(productResponse => console.log(productResponse))
+    service
+      .save(produto)
+      .then((productResponse) => { 
+        if ( productResponse.id!== undefined &&  productResponse.created!== undefined && productResponse.modified !== undefined ) {
+          setId(productResponse.id);
+          setCreated(productResponse.created)
+          setModified(productResponse.modified)
+        }
+      });
   };
 
   return (
     <Layout titulo="Products">
+      {id && 
+      <section className="columns">
+        <Input
+          id="id"
+          value={id}
+          columnClass="is-one-third"
+          label="Id for Product:"
+          disabled
+        />
+
+        <Input
+          columnClass="is-one-third"
+          label="Created:"
+          id="created"
+          value={created}    
+          disabled
+        />
+
+        <Input
+          columnClass="is-one-third"
+          label="Last Modified:"
+          id="modified"
+          value={modified}
+          disabled
+        />
+      </section>
+      }
+
       <section className="columns">
         <Input
           id="sku"

@@ -1,4 +1,5 @@
 import { InputProps } from "@/types/components/inputs/InputProps";
+import { formatReal} from "@/utils/mascInputPrice"
 import React from "react";
 
 export const Input: React.FC<InputProps> = ({
@@ -6,8 +7,19 @@ export const Input: React.FC<InputProps> = ({
   label,
   columnClass,
   id,
+  currency,
   ...inputProps
 }: InputProps) => {
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    let value = e.target.value
+
+    if(value && currency) {
+      value = formatReal(value)
+    }
+    onChange?.(value)
+  }
+
   return (
     <div className={`field column  ${columnClass} `}>
       <label className="label" htmlFor="sku">{label}</label>
@@ -15,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
         <input className={`input  is-rounded `}
           id={id} 
           {...inputProps}
-          onChange={(e) => onChange?.(e.target.value)}
+          onChange={onInputChange}
         />
       </div>
     </div>

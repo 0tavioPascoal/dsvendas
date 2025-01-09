@@ -5,6 +5,7 @@ import { Layout } from "@/components/Layout/layout";
 import { useState } from "react";
 import { useProductService } from "@/context/product/productContext";
 import { Product } from "@/types/models/product/product";
+import {convertToBigDecimal} from "@/utils/mascInputPrice"
 
 export default function Cadastro() {
   const service = useProductService();
@@ -15,6 +16,7 @@ export default function Cadastro() {
   const [id, setId] = useState("");
   const [created, setCreated] = useState("");
   const [modified, setModified] = useState("");
+  
 
   const submit = () => {
     const produto: Product = {
@@ -22,7 +24,7 @@ export default function Cadastro() {
       created,
       modified,
       sku,
-      price: parseFloat(price),
+      price: convertToBigDecimal(price),
       name,
       description,
     };
@@ -91,6 +93,8 @@ export default function Cadastro() {
           onChange={setPrice}
           value={price}
           placeholder="Price for Product"
+          currency
+          maxLength={16}
         />
       </section>
 

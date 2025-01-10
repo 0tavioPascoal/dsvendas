@@ -1,6 +1,6 @@
 "use client";
 
-import { Input } from "@/components/common/input";
+import { Input } from "@/components/common/inputComponent";
 import { Layout } from "@/components/Layout/layout";
 import { useState } from "react";
 import { useProductService } from "@/context/product/productContext";

@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItensProps } from "@/types/components/menu/MenuItens";
+import { MenuItensProps } from "@/types/MenuItens";
 import Link from "next/link";
 
 export const MenuItens: React.FC<MenuItensProps> = (props: MenuItensProps) => {

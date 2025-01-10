@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "./menu";
-import { LayoutProps } from "@/types/components/layout/layoutprops";
-import { AlertProps } from "@/types/components/alert/AlertProps";
+import { LayoutProps } from "@/types/layoutprops";
+import { AlertProps } from "@/types/AlertProps";
 import { Message } from "../common/message";
 
 export const Layout: React.FC<LayoutProps> = (props:LayoutProps) => {

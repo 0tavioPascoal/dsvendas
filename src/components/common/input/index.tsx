@@ -1,4 +1,4 @@
-import { InputProps } from "@/types/components/inputs/InputProps";
+import { InputProps } from "@/types/InputProps";
 import { formatReal} from "@/utils/mascInputPrice"
 import React from "react";
 
@@ -7,6 +7,7 @@ export const Input: React.FC<InputProps> = ({
   label,
   columnClass,
   id,
+  error,
   currency,
   ...inputProps
 }: InputProps) => {
@@ -27,8 +28,8 @@ export const Input: React.FC<InputProps> = ({
         <input className={`input  is-rounded `}
           id={id} 
           {...inputProps}
-          onChange={onInputChange}
-        />
+          onChange={onInputChange}/>
+      {error &&  <p className="help is-danger">{error}</p>}
       </div>
     </div>
   );

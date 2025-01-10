@@ -4,9 +4,10 @@ import { Input } from "@/components/common/input";
 import { Layout } from "@/components/Layout/layout";
 import { useState } from "react";
 import { useProductService } from "@/context/product/productContext";
-import { Product } from "@/types/models/product/product";
+import { Product } from "@/types/product";
 import {convertToBigDecimal} from "@/utils/mascInputPrice"
-import { AlertProps } from "@/types/components/alert/AlertProps";
+import { AlertProps } from "@/types/AlertProps";
+import { FormErrors } from "@/types/FormErros";
 import { ProductValidationSchema } from "@/validators/ProductValidator";
 
 export default function Cadastro() {
@@ -19,6 +20,7 @@ export default function Cadastro() {
   const [created, setCreated] = useState<string>("");
   const [modified, setModified] = useState<string>("");
   const [messages, setMessages] = useState<Array<AlertProps>>([])
+  const [errors, setErrors] = useState<FormErrors>({})
 
   const submit = () => {
     const produto: Product = {
@@ -32,6 +34,7 @@ export default function Cadastro() {
     };
     
     ProductValidationSchema.validate(produto).then(obj => {
+      setErrors({})
       if(id){
         service
         .updatedProduct(produto)
@@ -53,14 +56,10 @@ export default function Cadastro() {
         });
       }
     }).catch(err => {
-      const field = err.path;
+      const field = err.path
       const message = err.message
 
-      setMessages([{
-        text: message,
-        field,
-        color: "is-danger"
-      }])
+      setErrors({[field]: message})
     })
     
   };
@@ -103,6 +102,7 @@ export default function Cadastro() {
           columnClass="is-half"
           label="SKU: "
           placeholder="SKU Product"
+          error={errors.sku}
         />
 
         <Input
@@ -114,6 +114,7 @@ export default function Cadastro() {
           placeholder="Price for Product"
           currency
           maxLength={16}
+          error={errors.price}
         />
       </section>
 
@@ -125,6 +126,7 @@ export default function Cadastro() {
           value={name}
           onChange={setName}
           placeholder="Name for Product"
+          error={errors.name}
         />
       </div>
 
@@ -151,6 +153,7 @@ export default function Cadastro() {
             className="button is-primary is-rounded is-hovered is-focused is-active"
             onClick={submit}>
             {id ? "Updated" : "Save"}
+            {errors.description &&  <p className="help is-danger">{errors.description}</p>}
           </button>
         </p>
         <p className="control">

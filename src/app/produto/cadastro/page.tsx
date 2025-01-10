@@ -7,6 +7,7 @@ import { useProductService } from "@/context/product/productContext";
 import { Product } from "@/types/models/product/product";
 import {convertToBigDecimal} from "@/utils/mascInputPrice"
 import { AlertProps } from "@/types/components/alert/AlertProps";
+import { ProductValidationSchema } from "@/validators/ProductValidator";
 
 export default function Cadastro() {
   const service = useProductService();
@@ -18,7 +19,6 @@ export default function Cadastro() {
   const [created, setCreated] = useState<string>("");
   const [modified, setModified] = useState<string>("");
   const [messages, setMessages] = useState<Array<AlertProps>>([])
-  
 
   const submit = () => {
     const produto: Product = {
@@ -30,26 +30,38 @@ export default function Cadastro() {
       name,
       description,
     };
-    if(id){
-      service
-      .updatedProduct(produto)
-      .then(response => {
-        setMessages([{color: "is-success", text:"Product updated successfully"}])
-      })
-    }else{
-      service
-      .save(produto)
-      .then((productResponse) => { 
-        if ( productResponse.id!== undefined &&  productResponse.created!== undefined && productResponse.modified !== undefined ) {
-          setId(productResponse.id);
-          setCreated(productResponse.created)
-          setModified(productResponse.modified)
-          setMessages([{
-            color:"is-success", text: "Product Saved successfully"
-          }])
-        }
-      });
-    }
+    
+    ProductValidationSchema.validate(produto).then(obj => {
+      if(id){
+        service
+        .updatedProduct(produto)
+        .then(response => {
+          setMessages([{color: "is-success", text:"Product updated successfully"}])
+        })
+      }else{
+        service
+        .save(produto)
+        .then((productResponse) => { 
+          if ( productResponse.id!== undefined &&  productResponse.created!== undefined && productResponse.modified !== undefined ) {
+            setId(productResponse.id);
+            setCreated(productResponse.created)
+            setModified(productResponse.modified)
+            setMessages([{
+              color:"is-success", text: "Product Saved successfully"
+            }])
+          }
+        });
+      }
+    }).catch(err => {
+      const field = err.path;
+      const message = err.message
+
+      setMessages([{
+        text: message,
+        field,
+        color: "is-danger"
+      }])
+    })
     
   };
 

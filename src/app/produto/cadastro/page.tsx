@@ -6,16 +6,18 @@ import { useState } from "react";
 import { useProductService } from "@/context/product/productContext";
 import { Product } from "@/types/models/product/product";
 import {convertToBigDecimal} from "@/utils/mascInputPrice"
+import { AlertProps } from "@/types/components/alert/AlertProps";
 
 export default function Cadastro() {
   const service = useProductService();
-  const [sku, setSku] = useState("");
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDesc] = useState("");
-  const [id, setId] = useState("");
-  const [created, setCreated] = useState("");
-  const [modified, setModified] = useState("");
+  const [sku, setSku] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [description, setDesc] = useState<string>("");
+  const [id, setId] = useState<string>("");
+  const [created, setCreated] = useState<string>("");
+  const [modified, setModified] = useState<string>("");
+  const [messages, setMessages] = useState<Array<AlertProps>>([])
   
 
   const submit = () => {
@@ -31,7 +33,9 @@ export default function Cadastro() {
     if(id){
       service
       .updatedProduct(produto)
-      .then(productResponse => console.log("Updtaded"))
+      .then(response => {
+        setMessages([{color: "is-success", text:"Product updated successfully"}])
+      })
     }else{
       service
       .save(produto)
@@ -40,6 +44,9 @@ export default function Cadastro() {
           setId(productResponse.id);
           setCreated(productResponse.created)
           setModified(productResponse.modified)
+          setMessages([{
+            color:"is-success", text: "Product Saved successfully"
+          }])
         }
       });
     }
@@ -47,7 +54,7 @@ export default function Cadastro() {
   };
 
   return (
-    <Layout titulo="Products">
+    <Layout titulo="Products"  messages={messages}>
       {id && 
       <section className="columns">
         <Input

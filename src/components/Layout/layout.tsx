@@ -1,6 +1,8 @@
 import React from "react";
 import { Menu } from "./menu";
 import { LayoutProps } from "@/types/components/layout/layoutprops";
+import { AlertProps } from "@/types/components/alert/AlertProps";
+import { Message } from "../common/message";
 
 export const Layout: React.FC<LayoutProps> = (props:LayoutProps) => {
   return(
@@ -18,6 +20,8 @@ export const Layout: React.FC<LayoutProps> = (props:LayoutProps) => {
                     </div>
                     <div className="card-content has-background-white-ter">
                         <div className="content">
+                            {props.messages && 
+                            props.messages.map(msg => <Message key={msg.text} {...msg}/> )}
                             {props.children}
                         </div>
                     </div>

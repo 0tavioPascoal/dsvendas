@@ -9,10 +9,10 @@ export const TableListing: React.FC<TableProductsRows>  =({
     <table className="table">
       <thead>
         <tr>
-      <th> Id </th>
+      <th> ID </th>
       <th> SKU </th>
-      <th> name</th>
-      <th> price </th>
+      <th> NAME</th>
+      <th> PRICE </th>
         </tr>
       </thead>
       <tbody>

@@ -8,19 +8,17 @@ import useSWR from 'swr'
 import { Product } from "@/types/product"
 import { httpClient } from "@/lib/axios"
 import { AxiosResponse } from "axios"
+import { Loader } from "@/components/common/loader"
 
 export default function Listing () {
 
 const {data: result} = useSWR<AxiosResponse<Product[]>>('/products' , (url: string) => httpClient.get(url))
-if(!result){
-  return(
-      <h1>loading...</h1>
-  )
-}
+
 
   return(
       <Layout titulo="Listing for Products" >
-       <br/>
+       <br/>   
+       <Loader show={!result}/>
         <TableListing ProductsRows={result?.data || []}/>
         <br/>
         <Link href="register" >

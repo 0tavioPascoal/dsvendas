@@ -3,6 +3,7 @@
 import { Layout } from "@/components/Layout/layout"
 import Link from "next/link"
 import React from "react"
+import { useRouter } from "next/navigation"
 import { TableListing} from "@/components/common/tableListing"
 import useSWR from 'swr'
 import { Product } from "@/types/product"
@@ -11,15 +12,23 @@ import { AxiosResponse } from "axios"
 import { Loader } from "@/components/common/loader"
 
 export default function Listing () {
-
+const router = useRouter()
 const {data: result} = useSWR<AxiosResponse<Product[]>>('/products' , (url: string) => httpClient.get(url))
 
+const editingProd = (product: Product) => {
+  const url = `/products/register?id=${product.id}`
+  router.push(url)
+}
+
+const deleteProd = (product: Product) => {
+  console.log(product)
+}
 
   return(
       <Layout titulo="Listing for Products" >
        <br/>   
        <Loader show={!result}/>
-        <TableListing ProductsRows={result?.data || []}/>
+        <TableListing  onDelete={deleteProd} onEdit={editingProd} ProductsRows={result?.data || []}/>
         <br/>
         <Link href="register" >
           <button className="button is-success is-rounded">Novo</button>

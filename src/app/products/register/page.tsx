@@ -2,13 +2,15 @@
 
 import { Input } from "@/components/common/inputComponent";
 import { Layout } from "@/components/Layout/layout";
-import { useState } from "react";
-import { useProductService } from "@/context/product/productContext";
+import { useEffect, useState } from "react";
+import { useProductService } from "@/context/productContext";
 import { Product } from "@/types/product";
-import {convertToBigDecimal} from "@/utils/mascInputPrice"
+import {convertToBigDecimal, formatReal} from "@/utils/mascInputPrice"
 import { AlertProps } from "@/types/AlertProps";
 import { FormErrors } from "@/types/FormErros";
 import { ProductValidationSchema } from "@/validators/ProductValidator";
+import { useSearchParams } from 'next/navigation';
+import { number } from "yup";
 
 export default function Cadastro() {
   const service = useProductService();
@@ -21,6 +23,28 @@ export default function Cadastro() {
   const [modified, setModified] = useState<string>("");
   const [messages, setMessages] = useState<Array<AlertProps>>([])
   const [errors, setErrors] = useState<FormErrors>({})
+  const searchParams = useSearchParams();
+  const queryId = searchParams.get('id');
+  
+  useEffect(() => {
+    if(queryId){
+    service.getProductForId(queryId).then(foundProduct => {
+      console.log(foundProduct)
+      if (foundProduct) {
+        setId(foundProduct.id || '');
+        setDesc(foundProduct.description || '');
+        setCreated(foundProduct.created || '');
+        setModified(foundProduct.modified || '');
+        setName(foundProduct.name || '')
+        setSku(foundProduct.sku || '');
+        setPrice(formatReal(`${foundProduct.price}`))
+      }
+    }).catch((error) => {
+      console.error('Erro ao buscar o produto:', error);
+    });
+    }
+  }, [queryId])
+ 
 
   const submit = () => {
     const produto: Product = {

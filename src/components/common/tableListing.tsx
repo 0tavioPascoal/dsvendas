@@ -3,7 +3,9 @@ import { TableProductsRows } from "@/types/tableProductsRows";
 import React from "react";
 
 export const TableListing: React.FC<TableProductsRows>  =({
-  ProductsRows
+  ProductsRows,
+  onDelete,
+  onEdit
 }) => {
   return(
     <table className="table">
@@ -16,14 +18,21 @@ export const TableListing: React.FC<TableProductsRows>  =({
         </tr>
       </thead>
       <tbody>
-      {ProductsRows.map(prodcut => <ProductRow  key={prodcut.id} Product={prodcut}/>)}
+      {ProductsRows.map(prodcut => <ProductRow 
+                          onDelete={onDelete} 
+                          onEdit={onEdit} 
+                          key={prodcut.id} 
+                          Product={prodcut}
+                          />)}
       </tbody>
     </table>
   )
 }
 
 const ProductRow: React.FC<ListingProps> =({
-  Product
+  Product,
+  onDelete,
+  onEdit
 })=>{
 return(
   <tr>
@@ -32,8 +41,8 @@ return(
     <td>{Product.name}</td>
     <td>{Product.price}</td>
     <td >
-    <button className="button is-warning is-rounded mr-4">Editar</button>
-    <button className="button is-danger is-rounded ">Excluir</button>
+    <button onClick={e => onEdit(Product)} className="button is-warning is-rounded mr-4">Editar</button>
+    <button onClick={e => onDelete(Product)} className="button is-danger is-rounded ">Excluir</button>
     </td>
   </tr>
 )

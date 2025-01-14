@@ -10,7 +10,7 @@ import { AlertProps } from "@/types/AlertProps";
 import { FormErrors } from "@/types/FormErros";
 import { ProductValidationSchema } from "@/validators/ProductValidator";
 import { useSearchParams } from 'next/navigation';
-import { number } from "yup";
+import Link from "next/link";
 
 export default function Cadastro() {
   const service = useProductService();
@@ -174,16 +174,18 @@ export default function Cadastro() {
       <div className="field is-grouped is-grouped-right">
         <p className="control">
           <button
-            className="button is-primary is-rounded is-hovered is-focused is-active"
+            className="button is-success is-rounded is-hovered is-focused is-active"
             onClick={submit}>
             {id ? "Updated" : "Save"}
-            {errors.description &&  <p className="help is-danger">{errors.description}</p>}
+            {errors.description &&  <p className="help is-danger ">{errors.description}</p>}
           </button>
         </p>
         <p className="control">
+          <Link href="listing">
           <button className="button is-light is-rounded is-hovered is-focused is-active">
             Cancel
-          </button>
+            </button>
+          </Link>
         </p>
       </div>
     </Layout>

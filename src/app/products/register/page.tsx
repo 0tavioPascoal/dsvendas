@@ -174,7 +174,7 @@ export default function Cadastro() {
       <div className="field is-grouped is-grouped-right">
         <p className="control">
           <button
-            className="button is-success is-rounded is-hovered is-focused is-active"
+            className="button is-success is-rounded is-hovered is-focused is-active "
             onClick={submit}>
             {id ? "Updated" : "Save"}
             {errors.description &&  <p className="help is-danger ">{errors.description}</p>}
@@ -182,7 +182,7 @@ export default function Cadastro() {
         </p>
         <p className="control">
           <Link href="listing">
-          <button className="button is-light is-rounded is-hovered is-focused is-active">
+          <button className="button is-light is-rounded is-hovered is-focused is-active ">
             Cancel
             </button>
           </Link>

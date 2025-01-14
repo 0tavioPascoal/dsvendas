@@ -1,5 +1,6 @@
 import { ListingProps } from "@/types/tableListingProps";
 import { TableProductsRows } from "@/types/tableProductsRows";
+import {formatReal} from "@/utils/mascInputPrice"
 import React from "react";
 
 export const TableListing: React.FC<TableProductsRows>  =({
@@ -8,13 +9,15 @@ export const TableListing: React.FC<TableProductsRows>  =({
   onEdit
 }) => {
   return(
-    <table className="table">
+    <table className=" table is-fullwidth is-striped is-hoverable">
       <thead>
-        <tr>
+        <tr >
       <th> ID </th>
       <th> SKU </th>
       <th> NAME</th>
       <th> PRICE </th>
+      <th>CREATED</th>
+      <th></th>
         </tr>
       </thead>
       <tbody>
@@ -39,11 +42,12 @@ return(
     <td>{Product.id}</td>
     <td>{Product.sku}</td>
     <td>{Product.name}</td>
-    <td>{Product.price}</td>
-    <td >
-    <button onClick={e => onEdit(Product)} className="button is-warning is-rounded mr-4">Editar</button>
-    <button onClick={e => onDelete(Product)} className="button is-danger is-rounded ">Excluir</button>
-    </td>
+    <td>{formatReal(`${Product.price}`)}</td>
+    <td>{Product.created}</td>
+    <td className="table is-narrow"> 
+      <button onClick={e => onEdit(Product)} className="button is-warning is-rounded mr-2 ">Editar</button>
+      <button onClick={e => onDelete(Product)} className="button is-danger is-rounded mr-2">Excluir</button>
+    </td>    
   </tr>
 )
 }

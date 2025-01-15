@@ -61,12 +61,12 @@ return(
     <td className="table is-narrow">{Product.created}</td>
     <td className="table is-narrow">  
       {!deleting && 
-      <button onClick={e => onEdit(Product)} className="button is-warning is-rounded mr-2 ">
+      <button onClick={() => onEdit(Product)} className="button is-warning is-rounded mr-2 ">
       <MdEdit size={15} width={15}/>
         Editing
       </button>
       }
-       <button onClick={e => onDeletingClick(Product)} className="button is-danger is-rounded mr-2">
+       <button onClick={() => onDeletingClick(Product)} className="button is-danger is-rounded mr-2">
           <MdDelete size={15} width={15}/>
           {deleting ? "Confirm" : "Delete"}
           </button>

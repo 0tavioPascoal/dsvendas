@@ -9,9 +9,9 @@ export const Menu: React.FC= () => {
     </p>
     <ul className="menu-list is-capitalized has-text-weight-semibold has-text-left">
         <MenuItens href="/" label="Home"  />
-        <MenuItens href="/products/listing" label="Produtos"  />
-        <MenuItens href="/consultas/clientes" label="Clientes" />
-        <MenuItens href="/vendas/nova-venda" label="Venda"  />
+        <MenuItens href="/products/listing" label="Products"  />
+        <MenuItens href="/clients/listing" label="Clients" />
+        <MenuItens href="/vendas/nova-venda" label="Sell"  />
         <MenuItens href="/vendas/relatorio-vendas" label="Relatório"  />
         <MenuItens href="/" label="Sair"  />
     </ul>

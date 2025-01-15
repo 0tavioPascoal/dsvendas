@@ -54,7 +54,7 @@ export default function Listing() {
       <Link href="register" className="is-flex is-justify-content-flex-end mr-5 is-align-items-center">
         <button className="button is-success is-rounded has-text-weight-bold is-uppercase is-focused  ">
         <AiOutlinePlus size={15} width={15} color="#FFFF"/>
-          Novo
+          New
         </button>
       </Link>
       <br/>

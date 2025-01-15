@@ -167,6 +167,7 @@ export default function Cadastro() {
               onChange={(e) => setDesc(e.target.value)}
               placeholder="Description for Product"
             ></textarea>
+            {errors.description &&  <p className="help is-danger ">{errors.description}</p>}
           </div>
         </div>
       </div>
@@ -177,7 +178,6 @@ export default function Cadastro() {
             className="button is-success is-rounded is-hovered is-focused is-active "
             onClick={submit}>
             {id ? "Updated" : "Save"}
-            {errors.description &&  <p className="help is-danger ">{errors.description}</p>}
           </button>
         </p>
         <p className="control">

@@ -1,10 +1,12 @@
+import { Product } from "@/types/product";
 import { ListingProps } from "@/types/tableListingProps";
 import { TableProductsRows } from "@/types/tableProductsRows";
 import {formatReal} from "@/utils/mascInputPrice"
-import React from "react";
+import React, { useState } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { MdOutlineCancel } from "react-icons/md";
 
-export const TableListing: React.FC<TableProductsRows>  =({
+export const TableListing: React.FC<TableProductsRows>  =({  
   ProductsRows,
   onDelete,
   onEdit
@@ -38,6 +40,18 @@ const ProductRow: React.FC<ListingProps> =({
   onDelete,
   onEdit
 })=>{
+  const [deleting, setDeleting] = useState<boolean>(false) 
+
+  const onDeletingClick = (product : Product) => {
+    if(deleting){
+      onDelete(product)
+      setDeleting(false)
+    } else{
+      setDeleting(true)
+    }
+  }
+
+  const cancelDelete = () => setDeleting(false)
 return(
   <tr>
     <td >{Product.id}</td>
@@ -45,15 +59,23 @@ return(
     <td>{Product.name}</td>
     <td >{formatReal(`${Product.price}`)}</td>
     <td className="table is-narrow">{Product.created}</td>
-    <td className="table is-narrow"> 
+    <td className="table is-narrow">  
+      {!deleting && 
       <button onClick={e => onEdit(Product)} className="button is-warning is-rounded mr-2 ">
       <MdEdit size={15} width={15}/>
-        Editar
+        Editing
       </button>
-      <button onClick={e => onDelete(Product)} className="button is-danger is-rounded mr-2">
-        <MdDelete size={15} width={15}/>
-        Excluir
-        </button>
+      }
+       <button onClick={e => onDeletingClick(Product)} className="button is-danger is-rounded mr-2">
+          <MdDelete size={15} width={15}/>
+          {deleting ? "Confirm" : "Delete"}
+          </button>
+        {deleting && 
+         <button onClick={cancelDelete} className="button is-rounded mr-2">
+         < MdOutlineCancel size={15} width={15}/>
+          Cancel
+         </button>
+        }
     </td>    
   </tr>
 )

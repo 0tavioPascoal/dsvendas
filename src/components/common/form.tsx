@@ -10,6 +10,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
   onSubmit,
 }) => {
   const formSchema: CLient = {
+    id: '',
     name: "",
     email: "",
     cpf: '',
@@ -23,36 +24,41 @@ export const FormCreated: React.FC<CLientFormProps> = ({
   const formik = useFormik<CLient>({
     initialValues: {  ...formSchema, ...client },
     onSubmit,
+    enableReinitialize: true
   });
+  console.log('client:', client)
+  console.log('formik', formik.values)
+
+
   return (
     <form onSubmit={formik.handleSubmit}>
 {formik.values.id && 
 <div className="columns">
 <Input
           columnClass="is-half"
-          name="idClient"
-          id="idClient"
-          label=""
+          name="id"
+          id="id"
+          label="ID:"
           disabled
           autoComplete="off"
           value={formik.values.id}
           onChange={formik.handleChange}
         />
         <Input
-          columnClass="is-half"
+          columnClass="is-one-quarter"
           name="created"
           id="created"
-          label=""
+          label="Created:"
           disabled
           autoComplete="off"
           value={formik.values.created}
           onChange={formik.handleChange}
         />
         <Input
-          columnClass="is-half"
+          columnClass="is-one-quarter"
           name="modified"
           id="modified"
-          label=""
+          label="Modified:"
           autoComplete="off"
           disabled
           value={formik.values.modified}
@@ -64,7 +70,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
         <Input
           columnClass="is-full"
           name="name"
-          id="Name"
+          id="name"
           label="Name:"
           autoComplete="off"
           value={formik.values.name}

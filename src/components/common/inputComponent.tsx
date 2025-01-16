@@ -1,7 +1,7 @@
 import { InputProps } from "@/types/InputProps";
 import React from "react";
 import { FormatUtils } from "@4us-dev/utils";
-import {formaterDate} from "@/utils/mascInputPrice"
+import {formatData} from "@/utils/mascInputPrice"
 
 const formatUtils = new FormatUtils();
 
@@ -14,19 +14,21 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   ...inputProps
 }: InputProps) => {
-  const onInputChange = (e) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
     const formattedValue = (formatter && formatter(value as string)) || value;
-    onChange({
-      ...e,
-      target: {
-        name,
-        value: formattedValue,
-      },
-    });
-  };
+    if (onChange) {
+      onChange({
+        ...e,
+        target: {
+          ...e.target,
+          name,        
+          value: formattedValue, 
+        },
+      });
+    }}
 
   return (
     <div className={`field column  ${columnClass} `}>
@@ -59,5 +61,5 @@ export const InputPhone: React.FC<InputProps> = (props) => {
 };
 
 export const InputDate: React.FC<InputProps> = (props) => {
-  return <Input {...props} maxLength={10} formatter={formaterDate} />;
+  return <Input {...props} maxLength={10} formatter={formatData} />;
 };

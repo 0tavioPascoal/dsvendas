@@ -2,7 +2,7 @@ import React from "react";
 import { CLient } from "@/models/clients/clients";
 import { useFormik } from "formik";
 import { CLientFormProps } from "@/types/ClientFormProps";
-import { Input } from "./inputComponent";
+import { Input, InputCPF, InputDate, InputPhone } from "./inputComponent";
 import Link from "next/link";
 
 export const FormCreated: React.FC<CLientFormProps> = ({
@@ -12,6 +12,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
   const formSchema: CLient = {
     name: "",
     email: "",
+    cpf: '',
     phone: "",
     birthday: "",
     address: "",
@@ -71,7 +72,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
         />
       </div>
       <div className="columns">
-        <Input
+        <InputCPF
           columnClass="is-half"
           name="cpf"
           id="cpf"
@@ -80,7 +81,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           value={formik.values.cpf}
           onChange={formik.handleChange}
         />
-        <Input
+        <InputDate
           columnClass="is-half"
           name="birthday"
           id="birthday"
@@ -112,7 +113,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           value={formik.values.email}
           onChange={formik.handleChange}
         />
-        <Input
+        <InputPhone
           columnClass="is-half"
           name="phone"
           id="phone"

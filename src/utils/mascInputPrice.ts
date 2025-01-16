@@ -1,3 +1,7 @@
+import {FormatUtils} from '@4us-dev/utils'
+
+const formatter = new FormatUtils()
+
 export const convertToBigDecimal = (value: string): number => {
   if (!value) {
     return 0; 
@@ -20,4 +24,29 @@ export const formatReal = (value: string): string => {
     .reverse()
     .join('.') || '';
   return `${formattedInteger},${decimalPart}`;
+};
+
+export const formaterDate = (value: string) => {
+  if (!value) {
+    return "";
+  }
+  const data = formatter.formatOnlyIntegers(value);
+  const size = value.length;
+
+  if (size <= 2) {
+    return data;
+  }
+  if (size <= 4) {
+    return data.substring(0, 2) + "/" + data.substring(2, 4);
+  }
+  if (size <= 8) {
+    return (
+      data.substring(0, 2) +
+      "/" +
+      data.substring(2, 4) +
+      "/" +
+      data.substring(4, 8)
+    );
+  }
+  return data;
 };

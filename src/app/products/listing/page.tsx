@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TableListing } from "@/components/common/tableListing";
 import useSWR from "swr";
-import { Product } from "@/types/product";
+import { Product } from "@/models/products/product";
 import { httpClient } from "@/lib/axios";
 import { AxiosResponse } from "axios";
 import { Loader } from "@/components/common/loader";

@@ -1,10 +1,10 @@
 "use client";
 
-import { Input } from "@/components/common/inputComponent";
+import { Input, InputMoney } from "@/components/common/inputComponent";
 import { Layout } from "@/components/Layout/layout";
 import { useEffect, useState } from "react";
 import { useProductService } from "@/context/productContext";
-import { Product } from "@/types/product";
+import { Product } from "@/models/products/product";
 import {convertToBigDecimal, formatReal} from "@/utils/mascInputPrice"
 import { AlertProps } from "@/types/AlertProps";
 import { FormErrors } from "@/types/FormErros";
@@ -122,21 +122,21 @@ export default function Cadastro() {
         <Input
           id="sku"
           value={sku}
-          onChange={setSku}
+          onChange={e => setSku(e.target.value)}
           columnClass="is-half"
           label="SKU: "
           placeholder="SKU Product"
           error={errors.sku}
         />
 
-        <Input
+        <InputMoney
           columnClass="is-half"
           label="Price: "
           id="price"
-          onChange={setPrice}
+          onChange={e => setPrice(e.target.value)}
           value={price}
           placeholder="Price for Product"
-          currency
+          formatter={formatReal}
           maxLength={16}
           error={errors.price}
         />
@@ -148,7 +148,7 @@ export default function Cadastro() {
           label="Name"
           id="name"
           value={name}
-          onChange={setName}
+          onChange={e => setName(e.target.value)}
           placeholder="Name for Product"
           error={errors.name}
         />

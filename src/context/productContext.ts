@@ -1,6 +1,6 @@
 import { httpClient } from "@/lib/axios";
 import { AxiosResponse } from "axios";
-import { Product } from "@/types/product"; 
+import { Product } from "@/models/products/product"; 
 
 const resourceUrl:string = "/products"
 

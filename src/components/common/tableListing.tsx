@@ -1,4 +1,4 @@
-import { Product } from "@/types/product";
+import { Product } from "@/models/products/product";
 import { ListingProps } from "@/types/tableListingProps";
 import { TableProductsRows } from "@/types/tableProductsRows";
 import {formatReal} from "@/utils/mascInputPrice"

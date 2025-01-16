@@ -3,22 +3,27 @@ import { formatReal} from "@/utils/mascInputPrice"
 import React from "react";
 
 export const Input: React.FC<InputProps> = ({
-  onChange,
   label,
   columnClass,
   id,
+  formatter,
   error,
-  currency,
+  onChange,
   ...inputProps
 }: InputProps) => {
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    let value = e.target.value
+  const onInputChange = (e) => {
+    const value = e.target.value
+    const name = e.target.name
 
-    if(value && currency) {
-      value = formatReal(value)
-    }
-    onChange?.(value)
+    const formattedValue = (formatter && formatter(value as string)) || value
+     onChange && onChange({
+      ...e,
+      target: {
+        name,
+        value: formattedValue
+      }
+    })
   }
 
   return (
@@ -28,9 +33,15 @@ export const Input: React.FC<InputProps> = ({
         <input className={`input  is-rounded `}
           id={id} 
           {...inputProps}
-          onChange={onInputChange}/>
+          onChange={onInputChange}
+          />
       {error &&  <p className="help is-danger">{error}</p>}
       </div>
     </div>
   );
 };
+
+
+export const InputMoney:React.FC<InputProps> = (props) => {
+  return <Input {...props} />
+}

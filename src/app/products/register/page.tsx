@@ -57,12 +57,12 @@ export default function Cadastro() {
       description,
     };
     
-    ProductValidationSchema.validate(produto).then(obj => {
+    ProductValidationSchema.validate(produto).then(() => {
       setErrors({})
       if(id){
         service
         .updatedProduct(produto)
-        .then(response => {
+        .then(() => {
           setMessages([{color: "is-success", text:"Product updated successfully"}])
         })
       }else{

@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { CLientFormProps } from "@/types/ClientFormProps";
 import { Input, InputCPF, InputDate, InputPhone } from "./inputComponent";
 import Link from "next/link";
+import { ValidationClientSchema } from "@/validators/Clientvalidator";
+
 
 export const FormCreated: React.FC<CLientFormProps> = ({
   client,
@@ -24,7 +26,8 @@ export const FormCreated: React.FC<CLientFormProps> = ({
   const formik = useFormik<CLient>({
     initialValues: {  ...formSchema, ...client },
     onSubmit,
-    enableReinitialize: true
+    enableReinitialize: true,
+    validationSchema: ValidationClientSchema
   });
   console.log('client:', client)
   console.log('formik', formik.values)
@@ -75,6 +78,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.name}
           onChange={formik.handleChange}
+          error={formik.errors.name}
         />
       </div>
       <div className="columns">
@@ -86,6 +90,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.cpf}
           onChange={formik.handleChange}
+          error={formik.errors.cpf}
         />
         <InputDate
           columnClass="is-half"
@@ -95,6 +100,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.birthday}
           onChange={formik.handleChange}
+          error={formik.errors.birthday}
         />
       </div>
       <div className="columns">
@@ -106,6 +112,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.address}
           onChange={formik.handleChange}
+          error={formik.errors.address}
         />
       </div>
 
@@ -118,6 +125,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.email}
           onChange={formik.handleChange}
+          error={formik.errors.email}
         />
         <InputPhone
           columnClass="is-half"
@@ -127,6 +135,7 @@ export const FormCreated: React.FC<CLientFormProps> = ({
           autoComplete="off"
           value={formik.values.phone}
           onChange={formik.handleChange}
+          error={formik.errors.phone}
         />
       </div>
 

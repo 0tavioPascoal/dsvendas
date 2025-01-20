@@ -65,6 +65,7 @@ return(
       <MdEdit size={15} width={15}/>
         Editing
       </button>
+      
       }
        <button onClick={() => onDeletingClick(Product)} className="button is-danger is-rounded mr-2">
           <MdDelete size={15} width={15}/>

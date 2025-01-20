@@ -3,19 +3,27 @@
 import { FormCreated } from "@/components/common/form";
 import { Layout } from "@/components/Layout/layout";
 import { CLient } from "@/models/clients/clients";
-import React from "react";
-import { useState } from "react";
+import React, { use } from "react";
+import { useState, useEffect } from "react";
 import { useClientService } from "@/context/clientContext";
 import { AlertProps } from "@/types/AlertProps";
+import { useSearchParams } from "next/navigation";
 
 export default function RegisterClients () {
-
 const service = useClientService()
 const [client, setClient] = useState<CLient>({} as CLient);
-  const [messages, setMessages] = useState<Array<AlertProps>>([])
+const [messages, setMessages] = useState<Array<AlertProps>>([])
+const paramns = useSearchParams()
+const id = paramns.get('id')
+
+useEffect(() => {
+  if(id){
+    service.getClientForId(id).then(client => setClient(client))
+    console.log(`setclient ${setClient}`)
+  }
+}, [id])
 
 const handleSubmit = (client: CLient) => {
- console.log(client)
  if(client.id){
   service.updatedClient(client).then(() => {
     setMessages([{

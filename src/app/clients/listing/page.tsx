@@ -13,13 +13,15 @@ import { Page } from "@/types/page";
 import { useClientService } from "@/context/clientContext";
 import { Paginator } from "primereact/paginator";
 import { MdDelete, MdEdit, MdOutlineCancel } from "react-icons/md";
-
+import Link from "next/link";
+import { AiOutlinePlus } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
 
 export default function ListingClients() {
   const router = useRouter();
   const service = useClientService();
   const [loading, setLoading] = useState<boolean>(false);
-  const [deleting, setDeleting] = useState<boolean>(false) 
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const [clients, setClients] = useState<Page<CLient>>({
     data: () => Promise.resolve(),
@@ -56,48 +58,54 @@ export default function ListingClients() {
       .finally(() => setLoading(false));
   };
 
-  const deleteClient = (client : CLient) => {
-    if(client.id){
+  const deleteClient = (client: CLient) => {
+    if (client.id) {
       service.deleteClient(client.id).then(() => {
-        handlePage({ first: 0, rows: clients.size, page: 0, pageCount: 1 })
-      })
-    } return null
-  }
+        handlePage({ first: 0, rows: clients.size, page: 0, pageCount: 1 });
+      });
+    }
+    return null;
+  };
 
   const actionTemplate = (register: CLient) => {
-    const onDeletingClick = (client : CLient) => {
-      if(deleting){
-        deleteClient(client)
-        setDeleting(false)
-      } else{
-        setDeleting(true)
+    const onDeletingClick = (client: CLient) => {
+      if (deleting) {
+        deleteClient(client);
+        setDeleting(false);
+      } else {
+        setDeleting(true);
       }
-    }
-  
-    const cancelDelete = () => setDeleting(false)
+    };
+
+    const cancelDelete = () => setDeleting(false);
 
     const url = `register?id=${register.id}`;
-    return(
+    return (
       <div>
-         {!deleting && 
-        <button onClick={() => router.push(url)} className="button is-warning is-rounded mr-2 ">
-        <MdEdit size={15} width={15}/>
-          Editing
+        {!deleting && (
+          <button
+            onClick={() => router.push(url)}
+            className="button is-warning is-rounded mr-2 "
+          >
+            <MdEdit size={15} width={15} />
+            Editing
+          </button>
+        )}
+        <button
+          onClick={() => onDeletingClick(register)}
+          className="button is-danger is-rounded mr-2"
+        >
+          <MdDelete size={15} width={15} />
+          {deleting ? "Confirm" : "Delete"}
         </button>
-        
-        }
-         <button onClick={() => onDeletingClick(register)} className="button is-danger is-rounded mr-2">
-            <MdDelete size={15} width={15}/>
-            {deleting ? "Confirm" : "Delete"}
-            </button>
-          {deleting && 
-           <button onClick={cancelDelete} className="button is-rounded mr-2">
-           < MdOutlineCancel size={15} width={15}/>
+        {deleting && (
+          <button onClick={cancelDelete} className="button is-rounded mr-2">
+            <MdOutlineCancel size={15} width={15} />
             Cancel
-           </button>
-          }
+          </button>
+        )}
       </div>
-    )
+    );
   };
 
   return (
@@ -122,9 +130,18 @@ export default function ListingClients() {
             onChange={handleChange}
             autoComplete="off"
           />
-          <button type="submit" className="button is-info is-rounded mt-6">
-            Search
-          </button>
+          <div className="is-flex is-justify-content-flex-end is-align-items-center mt-4 px-1">
+            <button type="submit" className="button is-info is-rounded">
+              <FaSearch size={15} width={15} color="#FFFF"/>
+              Search
+            </button>
+            <Link href="register" className="ml-6">
+              <button className="button is-success is-rounded has-text-weight-bold is-uppercase is-focused  ">
+                <AiOutlinePlus size={15} width={15} color="#FFFF" />
+                New
+              </button>
+            </Link>
+          </div>
         </div>
       </form>
 
@@ -141,9 +158,9 @@ export default function ListingClients() {
           >
             <Column field="id" header="Id" />
             <Column field="name" header="Name" />
-            <Column field="cpf" header="CPF" />
+            <Column  field="cpf" header="CPF" />
             <Column field="email" header="Email" />
-            <Column body={actionTemplate} />
+            <Column className="table is-narrow" body={actionTemplate} />
           </DataTable>
           <div className="card">
             <Paginator

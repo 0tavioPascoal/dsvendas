@@ -17,7 +17,7 @@ export const useClientService = () => {
   }
 
   const getClientForId = async (id: string) : Promise<CLient> => {
-    const urlGetId: string = `${clientUrl}?id=${id}`
+    const urlGetId: string = `${clientUrl}/${id}`
     const response: AxiosResponse<CLient> = await httpClient.get<CLient>(urlGetId)
     return response.data
   }  

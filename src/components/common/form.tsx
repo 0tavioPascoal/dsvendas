@@ -1,7 +1,7 @@
 import React from "react";
 import { CLient } from "@/models/clients/clients";
 import { useFormik } from "formik";
-import { CLientFormProps } from "@/types/ClientFormProps";
+import { CLientFormProps } from "@/types/clients/ClientFormProps";
 import { Input, InputCPF, InputDate, InputPhone } from "./inputComponent";
 import Link from "next/link";
 import { ValidationClientSchema } from "@/validators/Clientvalidator";

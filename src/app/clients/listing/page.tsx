@@ -2,7 +2,7 @@
 
 import { Layout } from "@/components/Layout/layout";
 import { useFormik } from "formik";
-import { ClientConsultingFormProps } from "@/types/clientConsultingFormProps";
+import { ClientConsultingFormProps } from "@/types/clients/clientConsultingFormProps";
 import React, { useState } from "react";
 import { Input, InputCPF } from "@/components/common/inputComponent";
 import { CLient } from "@/models/clients/clients";

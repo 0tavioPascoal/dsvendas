@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "bulma"
+import 'primeflex/primeflex.css'
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css'
 import "@/components/common/loader/loader.css"
+import "@/components/common/form-sell/form-sell.css"
 import {PrimeReactProvider} from "primereact/api"
 
 const geistSans = Geist({

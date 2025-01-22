@@ -6,9 +6,12 @@ import { useFormik } from "formik";
 import { AutoComplete, AutoCompleteChangeEvent, AutoCompleteCompleteEvent } from "primereact/autocomplete";
 import { useState } from "react";
 import { useClientService } from '@/context/clientContext';
+import { Input } from "../inputComponent";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const service = useClientService();
+  const [loading, setLoading] = useState<boolean>(false); 
+  const [sku, setsku] = useState<string>('')
   const [listClient, setListClient] = useState<Page<CLient>>({
     data: () => Promise.resolve(),
     content: [],
@@ -17,8 +20,6 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
     number: 0,
     size: 0,
   });
-
-  const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
 
   const formik = useFormik<Sell>({
     onSubmit,
@@ -49,18 +50,20 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+  <div className="columns">
+  <div className="column is-full">
     <div className="field">
-      <label className="label" htmlFor="client">Cliente</label>
+      <label className="label" htmlFor="client">Client</label>
       <div className="control">
         <AutoComplete
           suggestions={listClient.content}
           completeMethod={handleAutoCompleteClient}
           value={formik.values.client}
           onChange={handleClientSelect}
-          id="client"
+          id="client1"
           field="name"
-          inputClassName="input"  // Usando classe do Bulma para o campo de entrada
-          panelClassName="custom-autocomplete-panel"  // Classe personalizada do painel
+          inputClassName="input is-rounded"
+          panelClassName="custom-autocomplete-panel"
           itemTemplate={(item: CLient) => (
             <div className="custom-autocomplete-item">
               <strong>{item.name}</strong>
@@ -74,14 +77,70 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
       )}
       {loading && <small className="has-text-grey">Carregando...</small>}
     </div>
+  </div>
+</div>
 
-    <div className="field is-grouped mt-6">
-      <div className="control">
-        <button type="submit" className="button is-success" disabled={loading}>
-          {loading ? "Enviando..." : "Enviar"}
-        </button>
+<div className="columns">
+        <Input 
+          label="SKU:"
+          columnClass="is-one-fifth"
+          value={sku}
+          onChange={e => setsku(e.target.value)}
+          id="sku"
+          name="sku"
+        />
+
+        <div className="column is-half">
+          <div className="field">
+            <label className="label" htmlFor="product">Product: </label>
+            <div className="control">
+              <AutoComplete
+                suggestions={listClient.content}
+                completeMethod={handleAutoCompleteClient}
+                value={formik.values.client}
+                onChange={handleClientSelect}
+                id="product"
+                field="name"
+                inputClassName="input is-rounded"
+                panelClassName="custom-autocomplete-panel"
+                itemTemplate={(item: CLient) => (
+                  <div className="custom-autocomplete-item">
+                    <strong>{item.name}</strong>
+                  </div>
+                )}
+                style={{ width: '100%' }}
+              />
+            </div>
+            {listClient.content.length === 0 && !loading && (
+              <small className="has-text-grey">Não há produtos encontrados.</small>
+            )}
+            {loading && <small className="has-text-grey">Carregando...</small>}
+          </div>
+        </div>
+
+        <Input 
+          label="QNTD:"
+          columnClass="is-one-fifth"
+          value={sku}
+          onChange={e => setsku(e.target.value)}
+          id="qntd"
+          name="qntd"
+        />
+
+        <div className="column is-one-fifth">
+          <div className="field">
+            <div className="control">
+              <button 
+                type="submit" 
+                className="button is-success is-rounded is-hovered is-focused is-active has-text-weight-semibold"
+                style={{ marginTop: '30px' }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
 );
 };

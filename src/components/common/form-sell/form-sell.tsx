@@ -7,11 +7,15 @@ import { AutoComplete, AutoCompleteChangeEvent, AutoCompleteCompleteEvent } from
 import { useState } from "react";
 import { useClientService } from '@/context/clientContext';
 import { Input } from "../inputComponent";
+import { useProductService } from "@/context/productContext";
+import { Product } from "@/models/products/product";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
-  const service = useClientService();
+  const serviceClient = useClientService();
+  const serviceProduct = useProductService()
   const [loading, setLoading] = useState<boolean>(false); 
-  const [sku, setsku] = useState<string>('')
+  const [idProduct, setIdProduct] = useState<string>('')
+  const [product, setProduct] = useState<Product>({})
   const [listClient, setListClient] = useState<Page<CLient>>({
     data: () => Promise.resolve(),
     content: [],
@@ -34,7 +38,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
     const nameClient = e.query;
     setLoading(true);
-    service.find(0, 10, nameClient, '').then(result => {
+    serviceClient.find(0, 10, nameClient, '').then(result => {
       setListClient(result);
       setLoading(false); 
     }).catch(error => {
@@ -47,6 +51,19 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
     const selectedClient: CLient = e.value;
     formik.setFieldValue("client", selectedClient);
   };
+
+  const handleIdSelect = (e) => {
+   serviceProduct.getProductForId(idProduct).then(idResult => {
+    setProduct(idResult)
+   }).catch(err => console.log(err))
+  }
+
+  const handleAddProduct = () => {
+    const prodAdd = formik.values.product
+    prodAdd?.push(product)
+    setProduct({})
+    setIdProduct('')
+  }
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -82,12 +99,13 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
 
 <div className="columns">
         <Input 
-          label="SKU:"
+          label="ID Product:"
           columnClass="is-one-fifth"
-          value={sku}
-          onChange={e => setsku(e.target.value)}
+          value={idProduct}
+          onChange={e => setIdProduct(e.target.value)}
           id="sku"
           name="sku"
+          onBlur={handleIdSelect}
         />
 
         <div className="column is-half">
@@ -95,34 +113,20 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
             <label className="label" htmlFor="product">Product: </label>
             <div className="control">
               <AutoComplete
-                suggestions={listClient.content}
-                completeMethod={handleAutoCompleteClient}
-                value={formik.values.client}
-                onChange={handleClientSelect}
+                value={product}
                 id="product"
                 field="name"
                 inputClassName="input is-rounded"
                 panelClassName="custom-autocomplete-panel"
-                itemTemplate={(item: CLient) => (
-                  <div className="custom-autocomplete-item">
-                    <strong>{item.name}</strong>
-                  </div>
-                )}
                 style={{ width: '100%' }}
               />
             </div>
-            {listClient.content.length === 0 && !loading && (
-              <small className="has-text-grey">Não há produtos encontrados.</small>
-            )}
-            {loading && <small className="has-text-grey">Carregando...</small>}
           </div>
         </div>
 
         <Input 
           label="QNTD:"
           columnClass="is-one-fifth"
-          value={sku}
-          onChange={e => setsku(e.target.value)}
           id="qntd"
           name="qntd"
         />
@@ -134,6 +138,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
                 type="submit" 
                 className="button is-success is-rounded is-hovered is-focused is-active has-text-weight-semibold"
                 style={{ marginTop: '30px' }}
+                onClick={handleAddProduct}
               >
                 Save
               </button>

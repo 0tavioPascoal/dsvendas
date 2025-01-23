@@ -1,5 +1,5 @@
 import { CLient } from "@/models/clients/clients";
-import { Sell } from "@/models/sell/sell";
+import { itenSell, Sell } from "@/models/sell/sell";
 import { Page } from "@/types/page";
 import { sellFormProps } from "@/types/sell/sellFormProps";
 import { useFormik } from "formik";
@@ -10,6 +10,8 @@ import { Input } from "../inputComponent";
 import { useProductService } from "@/context/productContext";
 import { Product } from "@/models/products/product";
 import { Dialog } from "primereact/dialog";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const serviceClient = useClientService();
@@ -17,6 +19,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const [loading, setLoading] = useState<boolean>(false); 
   const [idProduct, setIdProduct] = useState<string>('')
   const [product, setProduct] = useState<Product>({})
+  const [qntd, setQntd] = useState<number>(0)
   const [messageDialog, setMessageDialog] = useState<string>('')
   const [listClient, setListClient] = useState<Page<CLient>>({
     data: () => Promise.resolve(),
@@ -32,7 +35,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
     initialValues: {
       client: {} as CLient,
       payment: '',
-      product: [],
+      itens: [],
       total: 0
     }
   });
@@ -64,10 +67,32 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   }
 
   const handleAddProduct = () => {
-    const prodAdd = formik.values.product
-    prodAdd?.push(product)
+    const itensAdd = formik.values.itens
+    const itenExisting = itensAdd?.some( (is: itenSell) => {
+      return is.product.id === product.id
+    })
+
+    if(itenExisting){
+      itensAdd?.forEach((is: itenSell) => {
+        if(is.product.id === product.id){
+          is.amount = is.amount + qntd
+        }
+      })
+    }else{
+      itensAdd?.push({
+        product: product,
+        amount: qntd
+      })
+    }
+
+    
     setProduct({})
     setIdProduct('')
+    setQntd(0)
+  }
+
+  const disableButton = () => {
+    return !product || !qntd
   }
 
   const messageDialogFooter =( ) => {
@@ -142,6 +167,8 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
         <Input 
           label="QNTD:"
           columnClass="is-one-fifth"
+          value={qntd}
+          onChange={e => setQntd(parseInt(e.target.value))}
           id="qntd"
           name="qntd"
         />
@@ -150,9 +177,10 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           <div className="field">
             <div className="control">
               <button 
-                type="submit" 
+                type="button" 
                 className="button is-success is-rounded is-hovered is-focused is-active has-text-weight-semibold"
                 style={{ marginTop: '30px' }}
+                disabled={disableButton()}
                 onClick={handleAddProduct}
               >
                 Save
@@ -161,6 +189,33 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           </div>
         </div>
       </div>
+
+      <div className="table is-fullwidth">
+        <DataTable value={formik.values.itens}>
+        <Column field="product.id" header="Id"/>
+          <Column field="product.name" header="Product"/>
+          <Column field="product.sku" header="Sku"/>
+          <Column field="product.price" header="Price"/>
+          <Column field="amount" header="QNTD"/>
+          <Column header="total" body={(is: itenSell) => { return(
+            <div>
+               { (is.product?.price ?? 0) * is.amount }
+            </div>
+          )}}/>
+        </DataTable>
+
+        <div className="field">
+            <div className="control">
+              <button 
+                type="submit" 
+                className="button is-success is-fullwidth is-rounded is-hovered is-focused is-active has-text-weight-semibold mt-6"
+              >
+                finish
+              </button>
+            </div>
+          </div>
+      </div>
+
       <Dialog header="Attention!"style={{ width: '50vw' }} position="top"
        visible={!!messageDialog} 
        onHide={() => setMessageDialog('')}

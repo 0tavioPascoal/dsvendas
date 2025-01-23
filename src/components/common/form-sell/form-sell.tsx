@@ -9,6 +9,7 @@ import { useClientService } from '@/context/clientContext';
 import { Input } from "../inputComponent";
 import { useProductService } from "@/context/productContext";
 import { Product } from "@/models/products/product";
+import { Dialog } from "primereact/dialog";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const serviceClient = useClientService();
@@ -16,6 +17,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const [loading, setLoading] = useState<boolean>(false); 
   const [idProduct, setIdProduct] = useState<string>('')
   const [product, setProduct] = useState<Product>({})
+  const [messageDialog, setMessageDialog] = useState<string>('')
   const [listClient, setListClient] = useState<Page<CLient>>({
     data: () => Promise.resolve(),
     content: [],
@@ -52,10 +54,13 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
     formik.setFieldValue("client", selectedClient);
   };
 
-  const handleIdSelect = (e) => {
+  const handleIdSelect = () => {
    serviceProduct.getProductForId(idProduct).then(idResult => {
     setProduct(idResult)
-   }).catch(err => console.log(err))
+   }).catch(() => {
+    setMessageDialog('Product not found!')
+   }
+   )
   }
 
   const handleAddProduct = () => {
@@ -63,6 +68,16 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
     prodAdd?.push(product)
     setProduct({})
     setIdProduct('')
+  }
+
+  const messageDialogFooter =( ) => {
+    return(
+      <div>
+        <button className="button is-danger is-focused is-rounded" onClick={() => setMessageDialog('')}>
+          Close
+          </button>
+      </div>
+    )
   }
 
   return (
@@ -146,6 +161,13 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           </div>
         </div>
       </div>
+      <Dialog header="Attention!"style={{ width: '50vw' }} position="top"
+       visible={!!messageDialog} 
+       onHide={() => setMessageDialog('')}
+       footer={messageDialogFooter}
+       >
+        {messageDialog}
+      </Dialog>
     </form>
 );
 };

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "bulma"
 import 'primeflex/primeflex.css'
-import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/themes/md-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css'
 import "@/components/common/loader/loader.css"
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
-        <PrimeReactProvider value={{ unstyled: true }}>
+        <PrimeReactProvider >
         {children}
         </PrimeReactProvider>
       </body> 

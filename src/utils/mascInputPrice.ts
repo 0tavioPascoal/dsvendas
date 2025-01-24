@@ -33,3 +33,9 @@ export const formatData = (value: string) => {
   }
   return "";
 };
+
+
+export const formartMoney = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});

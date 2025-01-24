@@ -12,10 +12,13 @@ import { Product } from "@/models/products/product";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Dropdown } from 'primereact/dropdown';
+import { formartMoney } from "@/utils/mascInputPrice";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const serviceClient = useClientService();
   const serviceProduct = useProductService()
+  const [payment, setPayment] = useState<string[]>(['Credit Card', 'Debit Card', 'Cash', 'Pix', 'Boleto'])
   const [loading, setLoading] = useState<boolean>(false); 
   const [idProduct, setIdProduct] = useState<string>('')
   const [product, setProduct] = useState<Product>({})
@@ -66,6 +69,21 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
    )
   }
 
+  const totalSell = () => {
+   
+      const itens = formik.values.itens || [];
+      
+      const totals = itens.map((is: itenSell) => {
+        const price = is.product?.price ?? 0; 
+        const amount = is.amount ?? 0; 
+        return price * amount; 
+      });
+    
+      return totals.length > 0 ? totals.reduce((a, b) => a + b, 0) : 0; 
+    };
+    
+    
+
   const handleAddProduct = () => {
     const itensAdd = formik.values.itens
     const itenExisting = itensAdd?.some( (is: itenSell) => {
@@ -84,11 +102,11 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
         amount: qntd
       })
     }
-
-    
     setProduct({})
     setIdProduct('')
     setQntd(0)
+    const totals = totalSell()
+    formik.setFieldValue('total', totals)
   }
 
   const disableButton = () => {
@@ -197,12 +215,39 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           <Column field="product.sku" header="Sku"/>
           <Column field="product.price" header="Price"/>
           <Column field="amount" header="QNTD"/>
-          <Column header="total" body={(is: itenSell) => { return(
-            <div>
-               { (is.product?.price ?? 0) * is.amount }
-            </div>
-          )}}/>
+          <Column header="total" body={(is: itenSell) => { 
+            const total = is.product.price ?? 0 * is.amount
+            const totalformated = formartMoney.format(total)
+            return(
+              <div>
+                {totalformated}
+              </div>
+            )
+          }}/>
         </DataTable>
+      </div>
+
+      <div className="columns">
+      <div className="column is-one-third">
+  <label htmlFor="payment" className="label">Payment</label>
+  <div className="control">
+    <Dropdown
+      id="payment"
+      name="payment"
+      value={formik.values.payment}
+      options={payment.map((method) => ({ label: method, value: method }))}
+      onChange={(e) => formik.setFieldValue("payment", e.value)}
+      className="input dropdown-bulma is-rounded"
+      placeholder="Select a payment method"
+    />
+  </div>
+</div>
+
+    <Input columnClass="is-one-quarter" label="Itens: " value={formik.values.itens?.length} disabled />
+
+    <Input columnClass="is-one-third" label="Total: " value={formartMoney.format(formik.values.total ?? 0)} disabled />
+</div>
+
 
         <div className="field">
             <div className="control">
@@ -214,7 +259,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
               </button>
             </div>
           </div>
-      </div>
+      
 
       <Dialog header="Attention!"style={{ width: '50vw' }} position="top"
        visible={!!messageDialog} 
@@ -222,7 +267,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
        footer={messageDialogFooter}
        >
         {messageDialog}
-      </Dialog>
+      </Dialog >
     </form>
 );
 };

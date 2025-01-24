@@ -14,6 +14,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from 'primereact/dropdown';
 import { formartMoney } from "@/utils/mascInputPrice";
+import { sellValidatorSchema } from "@/validators/sellValidator";
 
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const serviceClient = useClientService();
@@ -40,7 +41,8 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
       payment: '',
       itens: [],
       total: 0
-    }
+    },
+    validationSchema: sellValidatorSchema
   });
 
   const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
@@ -135,7 +137,8 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           completeMethod={handleAutoCompleteClient}
           value={formik.values.client}
           onChange={handleClientSelect}
-          id="client1"
+          id="client"
+          name="client"
           field="name"
           inputClassName="input is-rounded"
           panelClassName="custom-autocomplete-panel"
@@ -146,6 +149,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
           )}
           style={{ width: '100%' }}
         />
+        <small className="p-error p-d-block">{formik.errors.client}</small>
       </div>
       {listClient.content.length === 0 && !loading && (
         <small className="has-text-grey">Não há clientes encontrados.</small>
@@ -176,6 +180,11 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
                 field="name"
                 inputClassName="input is-rounded"
                 panelClassName="custom-autocomplete-panel"
+                itemTemplate={(item: CLient) => (
+                  <div className="custom-autocomplete-item">
+                    <strong>{item.name}</strong>
+                  </div>
+                )}
                 style={{ width: '100%' }}
               />
             </div>
@@ -225,6 +234,7 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
             )
           }}/>
         </DataTable>
+        <small className="p-error p-d-block">{formik.touched && formik.errors.itens}</small>
       </div>
 
       <div className="columns">
@@ -240,11 +250,10 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
       className="input dropdown-bulma is-rounded"
       placeholder="Select a payment method"
     />
+    <small className="p-error p-d-block">{formik.errors.payment}</small>
   </div>
 </div>
-
     <Input columnClass="is-one-quarter" label="Itens: " value={formik.values.itens?.length} disabled />
-
     <Input columnClass="is-one-third" label="Total: " value={formartMoney.format(formik.values.total ?? 0)} disabled />
 </div>
 

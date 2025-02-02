@@ -24,11 +24,11 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
   const serviceClient = useClientService();
   const serviceProduct = useProductService();
   const [payment, setPayment] = useState<string[]>([
-    "Credit Card",
-    "Debit Card",
-    "Cash",
-    "Pix",
-    "Boleto",
+    "CREDIT",
+    "DEBIT",
+    "CASH",
+    "PIX",
+    "BOLETO"
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const [idProduct, setIdProduct] = useState<string>("");

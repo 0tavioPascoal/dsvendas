@@ -23,7 +23,7 @@ import { sellValidatorSchema } from "@/validators/sellValidator";
 export const FormSell: React.FC<sellFormProps> = ({ onSubmit, saleMade, onSaleMade}) => {
   const serviceClient = useClientService();
   const serviceProduct = useProductService();
-  const [payment, setPayment] = useState<string[]>([
+  const [payment, ] = useState<string[]>([
     "CREDIT",
     "DEBIT",
     "CASH",

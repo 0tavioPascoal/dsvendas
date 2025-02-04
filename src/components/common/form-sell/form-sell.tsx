@@ -20,7 +20,7 @@ import { Dropdown } from "primereact/dropdown";
 import { formartMoney } from "@/utils/mascInputPrice";
 import { sellValidatorSchema } from "@/validators/sellValidator";
 
-export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
+export const FormSell: React.FC<sellFormProps> = ({ onSubmit, saleMade, onSaleMade}) => {
   const serviceClient = useClientService();
   const serviceProduct = useProductService();
   const [payment, setPayment] = useState<string[]>([
@@ -98,6 +98,14 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
 
     return totals.reduce((a, b) => a + b, 0);
   };
+
+  const makeNewSale = () => {
+    onSaleMade();
+    formik.resetForm();
+    setProduct({});
+    setIdProduct("");
+    setQntd(0);
+  }
 
   const handleAddProduct = () => {
     const itensAdd = formik.values.itens;
@@ -322,12 +330,17 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit }) => {
 
       <div className="field">
         <div className="control">
-          <button
+        {!saleMade &&  <button
             type="submit"
             className="button is-success is-fullwidth is-rounded is-hovered is-focused is-active has-text-weight-semibold mt-6"
-          >
-            finish
-          </button>
+          >finish
+          </button>}
+          {saleMade &&  <button
+            type="button"
+            className="button is-success is-fullwidth is-rounded is-hovered is-focused is-active has-text-weight-semibold mt-6"
+            onClick={makeNewSale}
+          >new sell
+          </button>}
         </div>
       </div>
 

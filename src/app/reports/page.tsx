@@ -6,6 +6,7 @@ import { useReportService } from "@/context/reportContext";
 import { CLient } from "@/models/clients/clients";
 import { Page } from "@/types/page";
 import { reportsSellForm } from "@/types/reports/reportsSellForm";
+import { reportValidatorForm } from "@/validators/reportValidator";
 import { useFormik } from "formik";
 import { AutoComplete, AutoCompleteChangeEvent, AutoCompleteCompleteEvent } from "primereact/autocomplete";
 import { useState } from "react";
@@ -23,6 +24,7 @@ export default function Reports () {
       size: 0,
     });
   const handleSubmitReports = (data: reportsSellForm) => {
+    console.log(data)
     reportService.findReport(data.client.id, data.startDate, data.finalDate)
     .then(res => {
       const fileURL = URL.createObjectURL(res)
@@ -51,7 +53,8 @@ const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
       client: {} as CLient,
       finalDate: '',
       startDate: ''
-    })
+    }),
+    validationSchema: reportValidatorForm
   })
 
   return(
@@ -90,17 +93,20 @@ const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
               </small>
             )}
             {loading && <small className="has-text-grey">Carregando...</small>}
+            <small className="p-error p-d-block">{formik.errors.client?.id}</small>
             </div>
           </div>
     
-          <InputDate
+          <InputDate 
           label="Start Date:"
           columnClass="is-one-fifth"
           id="startdate"
           value={formik.values.startDate}
           onChange={formik.handleChange}
           name="startDate"
+          error={formik.errors.startDate}
         />
+        
 
         <InputDate
           label="Final Date:"
@@ -109,7 +115,10 @@ const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
           onChange={formik.handleChange}
           value={formik.values.finalDate}
           name="finalDate"
+          error={formik.errors.finalDate}
         />
+         
+        
         </div>
         <div className="column is-fullwidht">
           <div className="field">

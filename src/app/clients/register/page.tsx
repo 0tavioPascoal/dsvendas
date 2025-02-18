@@ -1,12 +1,12 @@
 "use client"
 
-import { FormCreated } from "@/components/common/form";
+import { FormCreated } from "@/components/common/formClient/form";
 import { Layout } from "@/components/Layout/layout";
 import { CLient } from "@/models/clients/clients";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useClientService } from "@/context/clientContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 import { redirect, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -22,6 +22,7 @@ useEffect(() => {
     service.getClientForId(id).then(client => setClient(client))
     console.log(`setclient ${setClient}`)
   }
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id])
 
 const handleSubmit = (client: CLient) => {

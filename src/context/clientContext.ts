@@ -1,7 +1,7 @@
 import { httpClient } from "@/lib/axios";
 import { CLient } from "@/models/clients/clients";
 import { AxiosResponse } from "axios";
-import { Page } from "@/types/page";
+import { Page } from "@/@types/pageCount/page";
 
 const clientUrl:string = "clients"
 

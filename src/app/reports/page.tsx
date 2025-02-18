@@ -1,11 +1,11 @@
 'use client'
-import { InputDate } from "@/components/common/inputComponent";
+import { InputDate } from "@/components/common/input/inputComponent";
 import { Layout } from "@/components/Layout/layout";
 import { useClientService } from "@/context/clientContext";
 import { useReportService } from "@/context/reportContext";
 import { CLient } from "@/models/clients/clients";
-import { Page } from "@/types/page";
-import { reportsSellForm } from "@/types/reports/reportsSellForm";
+import { Page } from "@/@types/pageCount/page";
+import { reportsSellForm } from "@/@types/reports/reportsSellForm";
 import { reportValidatorForm } from "@/validators/reportValidator";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";

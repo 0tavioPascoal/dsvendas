@@ -1,4 +1,4 @@
-import { InputProps } from "@/types/InputProps";
+import { InputProps } from "@/@types/common/InputProps";
 import React from "react";
 import { FormatUtils } from "@4us-dev/utils";
 import {formatData} from "@/utils/mascInputPrice"

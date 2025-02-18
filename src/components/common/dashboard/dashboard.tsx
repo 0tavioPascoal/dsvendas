@@ -1,5 +1,5 @@
 'use client'
-import { DashboardProps } from "@/types/dashboard/dashboardProps"
+import { DashboardProps } from "@/@types/dashboard/dashboardProps"
 import { Chart } from 'primereact/chart';
 import { Card } from "primereact/card"
 import { Months } from "@/utils/months";

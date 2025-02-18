@@ -1,4 +1,4 @@
-import { MessageProps} from "@/types/messageProps"
+import { MessageProps} from "@/@types/common/messageProps"
 import React from "react";
 
 export const Message: React.FC<MessageProps> = ({

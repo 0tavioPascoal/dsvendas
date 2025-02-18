@@ -3,7 +3,7 @@
 import { Dashboard } from "@/components/common/dashboard/dashboard";
 import { Layout } from "@/components/Layout/layout";
 import { useDashboardService } from "@/context/dashboardContext";
-import { DashboardData } from "@/types/dashboard/dashboardData";
+import { DashboardData } from "@/@types/dashboard/dashboardData";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth"
 

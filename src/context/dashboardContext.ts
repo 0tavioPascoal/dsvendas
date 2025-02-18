@@ -1,5 +1,5 @@
 import { httpClient } from "@/lib/axios"
-import { DashboardData } from "@/types/dashboard/dashboardData"
+import { DashboardData } from "@/@types/dashboard/dashboardData"
 import { AxiosResponse } from "axios"
 
 export const useDashboardService = () => {

@@ -1,7 +1,7 @@
 import { CLient } from "@/models/clients/clients";
 import { itenSell, Sell } from "@/models/sell/sell";
-import { Page } from "@/types/page";
-import { sellFormProps } from "@/types/sell/sellFormProps";
+import { Page } from "@/@types/pageCount/page";
+import { sellFormProps } from "@/@types/sell/sellFormProps";
 import { useFormik } from "formik";
 import {
   AutoComplete,
@@ -10,7 +10,7 @@ import {
 } from "primereact/autocomplete";
 import { useState } from "react";
 import { useClientService } from "@/context/clientContext";
-import { Input } from "../inputComponent";
+import { Input } from "../input/inputComponent";
 import { useProductService } from "@/context/productContext";
 import { Product } from "@/models/products/product";
 import { Dialog } from "primereact/dialog";

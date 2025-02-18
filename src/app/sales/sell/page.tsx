@@ -4,7 +4,7 @@ import { FormSell } from "@/components/common/form-sell/form-sell";
 import { Layout } from "@/components/Layout/layout";
 import { Sell } from "@/models/sell/sell";
 import { sellService } from "@/context/sellContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";

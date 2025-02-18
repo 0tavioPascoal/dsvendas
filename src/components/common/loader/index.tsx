@@ -1,4 +1,4 @@
-import { LoaderProps } from "@/types/loaderProps"
+import { LoaderProps } from "@/@types/common/loaderProps"
 
 export const Loader: React.FC<LoaderProps> = ({show}) => {
   if(!show){

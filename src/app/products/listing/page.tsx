@@ -5,14 +5,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
-import { TableListing } from "@/components/common/tableListing";
+import { TableListing } from "@/components/common/tableProducts/tableListing";
 import useSWR from "swr";
 import { Product } from "@/models/products/product";
 import { httpClient } from "@/lib/axios";
 import { AxiosResponse } from "axios";
 import { Loader } from "@/components/common/loader";
 import { useProductService } from "@/context/productContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 import { useSession } from "next-auth/react";
 
 export default function Listing() {

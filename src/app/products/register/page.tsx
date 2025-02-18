@@ -1,13 +1,13 @@
 "use client";
 
-import { Input, InputMoney } from "@/components/common/inputComponent";
+import { Input, InputMoney } from "@/components/common/input/inputComponent";
 import { Layout } from "@/components/Layout/layout";
 import { useEffect, useState } from "react";
 import { useProductService } from "@/context/productContext";
 import { Product } from "@/models/products/product";
 import {convertToBigDecimal, formatReal} from "@/utils/mascInputPrice"
-import { AlertProps } from "@/types/AlertProps";
-import { FormErrors } from "@/types/FormErros";
+import { AlertProps } from "@/@types/common/AlertProps";
+import { FormErrors } from "@/@types/common/FormErros";
 import { ProductValidationSchema } from "@/validators/ProductValidator";
 import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
@@ -29,7 +29,6 @@ export default function Cadastro() {
   useEffect(() => {
     if(queryId){
     service.getProductForId(queryId).then(foundProduct => {
-      console.log(foundProduct)
       if (foundProduct) {
         setId(foundProduct.id || '');
         setDesc(foundProduct.description || '');
@@ -40,7 +39,7 @@ export default function Cadastro() {
         setPrice(formatReal(`${foundProduct.price}`))
       }
     }).catch((error) => {
-      console.error('Erro ao buscar o produto:', error);
+      return error
     });
     }
   }, [queryId])

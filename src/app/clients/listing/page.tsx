@@ -2,14 +2,14 @@
 
 import { Layout } from "@/components/Layout/layout";
 import { useFormik } from "formik";
-import { ClientConsultingFormProps } from "@/types/clients/clientConsultingFormProps";
+import { ClientConsultingFormProps } from "@/@types/clients/clientConsultingFormProps";
 import React, { useState } from "react";
-import { Input, InputCPF } from "@/components/common/inputComponent";
+import { Input, InputCPF } from "@/components/common/input/inputComponent";
 import { CLient } from "@/models/clients/clients";
 import { useRouter } from "next/navigation";
 import { DataTable, DataTablePageEvent } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Page } from "@/types/page";
+import { Page } from "@/@types/pageRequest/page";
 import { useClientService } from "@/context/clientContext";
 import { Paginator } from "primereact/paginator";
 import { MdDelete, MdEdit, MdOutlineCancel } from "react-icons/md";

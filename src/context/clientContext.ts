@@ -1,7 +1,7 @@
 import { httpClient } from "@/lib/axios";
 import { CLient } from "@/models/clients/clients";
 import { AxiosResponse } from "axios";
-import { Page } from "@/types/page";
+import { Page } from "@/@types/pageRequest/page";
 
 const clientUrl:string = "clients"
 
@@ -28,7 +28,7 @@ export const useClientService = () => {
     await httpClient.delete(url);
   }
 
-  const find = async (page: number = 0, size: number = 10, name: string = '', cpf: string = '') : Promise<Page<CLient>>=> {
+  const find = async (page: number = 0, size: number = 10, name: string = '', cpf: string = '') : Promise<Page<CLient>> => {
     const url = `${clientUrl}?page=${page}&sizePage=${size}&name=${name}&cpf=${cpf}`
     const response: AxiosResponse<Page<CLient>> = await httpClient.get(url)
     console.log(response.data)

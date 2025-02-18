@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { AlertProps } from "./AlertProps";
+import { AlertProps } from "../common/AlertProps";
 
 export interface LayoutProps {
   titulo?: string; 

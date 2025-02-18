@@ -4,7 +4,7 @@ import { FormSell } from "@/components/common/form-sell/form-sell";
 import { Layout } from "@/components/Layout/layout";
 import { Sell } from "@/models/sell/sell";
 import { sellService } from "@/context/sellContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 import { useState } from "react";
 
 export default function Sells () {
@@ -14,11 +14,11 @@ const [saleMade, setSaleMade] = useState<boolean>(false)
 
 const handleSubmit = (sell: Sell) => {
   service.sell(sell)
-    .then(response => {
+    .then(() => {
       setSaleMade(true);
       setMessages([{ text: 'Successful sale', color: 'is-success' }]);
     })
-    .catch(e => {
+    .catch(() => {
       setMessages([{ text: 'Error when making the sale', color: 'is-danger' }]);
     });
 };

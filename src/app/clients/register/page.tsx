@@ -1,12 +1,12 @@
 "use client"
 
-import { FormCreated } from "@/components/common/form";
+import { FormCreated } from "@/components/common/form-client/form";
 import { Layout } from "@/components/Layout/layout";
 import { CLient } from "@/models/clients/clients";
-import React, { use } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 import { useClientService } from "@/context/clientContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 import { useSearchParams } from "next/navigation";
 
 export default function RegisterClients () {
@@ -19,7 +19,6 @@ const id = paramns.get('id')
 useEffect(() => {
   if(id){
     service.getClientForId(id).then(client => setClient(client))
-    console.log(`setclient ${setClient}`)
   }
 }, [id])
 

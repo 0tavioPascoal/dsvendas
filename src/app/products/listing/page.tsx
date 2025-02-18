@@ -5,14 +5,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { TableListing } from "@/components/common/tableListing";
+import { TableListing } from "@/components/common/table/tableListing";
 import useSWR from "swr";
 import { Product } from "@/models/products/product";
 import { httpClient } from "@/lib/axios";
 import { AxiosResponse } from "axios";
 import { Loader } from "@/components/common/loader";
 import { useProductService } from "@/context/productContext";
-import { AlertProps } from "@/types/AlertProps";
+import { AlertProps } from "@/@types/common/AlertProps";
 
 export default function Listing() {
   const router = useRouter();
@@ -36,7 +36,6 @@ export default function Listing() {
 
   const deleteProd = (product: Product) => {
     if(!product.id){
-      console.log('id n chegou')
       return
     }
     service.deleteProduct(product.id).then(() => {

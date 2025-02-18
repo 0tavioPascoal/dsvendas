@@ -1,4 +1,4 @@
-import { Product } from "../models/products/product";
+import {Product} from '@/models/products/product'
 
 export interface ListingProps{
   Product: Product

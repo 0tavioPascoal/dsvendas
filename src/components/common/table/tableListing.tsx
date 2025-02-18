@@ -1,5 +1,5 @@
 import { Product } from "@/models/products/product";
-import { TableProductsRows } from "@/types/products/tableProductsRows";
+import { TableProductsRows } from "@/@types/products/tableProductsRows";
 import React, { useState } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";

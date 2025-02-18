@@ -1,5 +1,5 @@
 'use client'
-import { DashboardProps } from "@/types/dashboard/dashboardProps"
+import { DashboardProps } from "@/@types/dashboard/dashboardProps"
 import { Chart } from 'primereact/chart';
 import { Card } from "primereact/card"
 import { Months } from "@/utils/months";
@@ -46,7 +46,7 @@ export const Dashboard:React.FC<DashboardProps> = ({clientCount, productCount, s
     </div>
     < div className="p-grid">
                 <div className="p-col">
-                <Chart type="bar" data={chartJs}/>
+                <Chart type="bar" data={chartJs} className="w-full md:w-30rem"/>
                 </div>
             </div>
    </div>

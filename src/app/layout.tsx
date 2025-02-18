@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css'
 import "@/components/common/loader/loader.css"
 import "@/components/common/form-sell/form-sell.css"
 import {PrimeReactProvider} from "primereact/api"
+import ProviderAuth from "@/context/authContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
+      <ProviderAuth>
         <PrimeReactProvider >
-        {children}
+          {children}
         </PrimeReactProvider>
+      </ProviderAuth>
       </body> 
     </html>
   );

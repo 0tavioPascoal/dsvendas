@@ -9,8 +9,9 @@ import {convertToBigDecimal, formatReal} from "@/utils/mascInputPrice"
 import { AlertProps } from "@/types/AlertProps";
 import { FormErrors } from "@/types/FormErros";
 import { ProductValidationSchema } from "@/validators/ProductValidator";
-import { useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Cadastro() {
   const service = useProductService();
@@ -44,8 +45,10 @@ export default function Cadastro() {
     });
     }
   }, [queryId])
- 
 
+  const {data: userSession} = useSession()
+  if(!userSession) return redirect("/")
+ 
   const submit = () => {
     const produto: Product = {
       id,

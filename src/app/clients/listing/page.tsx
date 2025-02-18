@@ -6,7 +6,7 @@ import { ClientConsultingFormProps } from "@/types/clients/clientConsultingFormP
 import React, { useState } from "react";
 import { Input, InputCPF } from "@/components/common/inputComponent";
 import { CLient } from "@/models/clients/clients";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { DataTable, DataTablePageEvent } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Page } from "@/types/page";
@@ -16,6 +16,7 @@ import { MdDelete, MdEdit, MdOutlineCancel } from "react-icons/md";
 import Link from "next/link";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 export default function ListingClients() {
   const router = useRouter();
@@ -31,6 +32,8 @@ export default function ListingClients() {
     number: 0,
     size: 10,
   });
+
+
 
   const handleSubmit = (filter: ClientConsultingFormProps) => {
     handlePage({ first: 0, rows: clients.size, page: 0, pageCount: 1 });
@@ -67,6 +70,10 @@ export default function ListingClients() {
     return null;
   };
 
+  const {data: sessionUser} = useSession()
+  if(!sessionUser) return redirect("/")
+
+
   const actionTemplate = (register: CLient) => {
     const onDeletingClick = (client: CLient) => {
       if (deleting) {
@@ -76,7 +83,7 @@ export default function ListingClients() {
         setDeleting(true);
       }
     };
-
+   
     const cancelDelete = () => setDeleting(false);
 
     const url = `register?id=${register.id}`;

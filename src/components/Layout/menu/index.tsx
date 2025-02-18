@@ -8,7 +8,7 @@ export const Menu: React.FC= () => {
        My Sells
     </p>
     <ul className="menu-list is-capitalized has-text-weight-semibold has-text-left">
-        <MenuItens href="/" label="Home"  />
+        <MenuItens href="/dashboard" label="Dashboard"  />
         <MenuItens href="/products/listing" label="Products"  />
         <MenuItens href="/clients/listing" label="Clients" />
         <MenuItens href="/sales/sell" label="Sell"  />

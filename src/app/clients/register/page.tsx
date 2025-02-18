@@ -3,11 +3,12 @@
 import { FormCreated } from "@/components/common/form";
 import { Layout } from "@/components/Layout/layout";
 import { CLient } from "@/models/clients/clients";
-import React, { use } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 import { useClientService } from "@/context/clientContext";
 import { AlertProps } from "@/types/AlertProps";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function RegisterClients () {
 const service = useClientService()
@@ -39,6 +40,10 @@ const handleSubmit = (client: CLient) => {
   }
   
 }
+
+const {data: userSession} = useSession()
+if(!userSession) return redirect("/")
+
   return(
     <Layout titulo="Register For Clients" messages={messages}>
       <FormCreated client={client} onSubmit={handleSubmit} />

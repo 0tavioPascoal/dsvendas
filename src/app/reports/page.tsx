@@ -8,8 +8,11 @@ import { Page } from "@/types/page";
 import { reportsSellForm } from "@/types/reports/reportsSellForm";
 import { reportValidatorForm } from "@/validators/reportValidator";
 import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { AutoComplete, AutoCompleteChangeEvent, AutoCompleteCompleteEvent } from "primereact/autocomplete";
 import { useState } from "react";
+
 
 export default function Reports () {
   const [loading, setLoading] = useState<boolean>(false);
@@ -56,6 +59,9 @@ const handleAutoCompleteClient = (e: AutoCompleteCompleteEvent) => {
     }),
     validationSchema: reportValidatorForm
   })
+
+const {data: session} = useSession()
+if(!session) return redirect("/")
 
   return(
   <Layout titulo="Reports">

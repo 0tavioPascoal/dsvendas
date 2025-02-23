@@ -42,7 +42,6 @@ export default function Listing() {
     
   const deleteProd = (product: Product) => {
     if(!product.id){
-      console.log('id n chegou')
       return
     }
     service.deleteProduct(product.id).then(() => {

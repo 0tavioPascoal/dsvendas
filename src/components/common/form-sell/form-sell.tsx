@@ -181,10 +181,10 @@ export const FormSell: React.FC<sellFormProps> = ({ onSubmit, saleMade, onSaleMa
             </div>
             {listClient.content.length === 0 && !loading && (
               <small className="has-text-grey">
-                Não há clientes encontrados.
+                No customers found.
               </small>
             )}
-            {loading && <small className="has-text-grey">Carregando...</small>}
+            {loading && <small className="has-text-grey">Loading...</small>}
           </div>
         </div>
       </div>

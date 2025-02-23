@@ -24,7 +24,6 @@ export const useProductService = () => {
 
   const deleteProduct = async (id:string) : Promise<void> => {
     const url: string = `${resourceUrl}?id=${id}`;
-    console.log(url)
     await httpClient.delete(url);
   }
 

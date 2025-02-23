@@ -27,7 +27,6 @@ export default function Reports () {
       size: 0,
     });
   const handleSubmitReports = (data: reportsSellForm) => {
-    console.log(data)
     reportService.findReport(data.client.id, data.startDate, data.finalDate)
     .then(res => {
       const fileURL = URL.createObjectURL(res)

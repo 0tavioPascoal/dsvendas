@@ -58,7 +58,11 @@ export const TableListing: React.FC<TableProductsRows>  =({
       <Column header="ID" field="id"/>
       <Column header="SKU" field="sku"/>
       <Column header="NAME" field="name"/>
-      <Column header="PRICE" field="price"/>
+      <Column
+        header="PRICE"
+        field="price"
+        body={(data) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(data.price)}
+      />
       <Column header="CREATED" field="created"/>
       <Column header="" body={actionTemplate}/>
     </DataTable>

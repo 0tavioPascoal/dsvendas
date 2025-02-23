@@ -20,7 +20,6 @@ const id = paramns.get('id')
 useEffect(() => {
   if(id){
     service.getClientForId(id).then(client => setClient(client))
-    console.log(`setclient ${setClient}`)
   }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id])

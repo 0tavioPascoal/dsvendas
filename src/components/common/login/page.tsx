@@ -28,7 +28,7 @@ export const Login: React.FC = () => {
         </h1>
 
         <p className="subtitle is-5 has-text-centered mt-6 mx-4">
-          Bem-vindo ao DsVendas, a plataforma que transforma a maneira como você trabalha. Entre com sua conta para acessar funcionalidades exclusivas e otimizar sua experiência.
+        Welcome to DsVendas, the platform that transforms the way you work. Log in with your account to access exclusive features and optimize your experience.
         </p>
 
         <div className="has-text-centered mt-5">
@@ -42,7 +42,7 @@ export const Login: React.FC = () => {
 
         <footer className="footer" style={{ marginTop: "auto", width: '100%' }}>
           <div className="content has-text-centered has-text-weight-bold mt-6">
-            <p>© 2025 Meu App. Todos os direitos reservados.</p>
+            <p>© 2025 My App. All rights reserved.</p>
           </div>
         </footer>
       </section>
@@ -76,7 +76,7 @@ export const Login: React.FC = () => {
               <span className="icon">
                 <FaGithub size={24} />
               </span>
-              <span className="has-text-weight-semibold">Entrar com o GitHub</span>
+              <span className="has-text-weight-semibold">Sign in with GitHub</span>
             </button>
 
           </div>

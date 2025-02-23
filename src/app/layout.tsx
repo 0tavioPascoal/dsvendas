@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "DsVendas",
-  description: "Generated DsVendas Dashboard",
+  description: "DsVendas Dashboard",
 };
 
 export default function RootLayout({

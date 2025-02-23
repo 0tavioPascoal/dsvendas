@@ -30,7 +30,6 @@ export default function Cadastro() {
   useEffect(() => {
     if(queryId){
     service.getProductForId(queryId).then(foundProduct => {
-      console.log(foundProduct)
       if (foundProduct) {
         setId(foundProduct.id || '');
         setDesc(foundProduct.description || '');

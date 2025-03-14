@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ```DsVendas-API```
 
-## Getting Started
+Este projeto é uma aplicação para gerenciar vendas de produtos, com funcionalidades de cadastro de produtos, clientes e realização de vendas. O sistema é dividido em duas partes: o back-end (API) e o front-end (interface do usuário).
 
-First, run the development server:
+## ``Estrutura do Projeto``
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Back-end:** Responsável pelo gerenciamento de dados, API e lógica de negócios,  segue o link para o Back-end -> [https://github.com/0tavioPascoal/dsvendas](https://github.com/0tavioPascoal/dsvendas-api).
+- **Front-end:** Responsável pela interface do usuário e interação com a API .
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ## ``Tecnologias Utilizadas``
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Front-end
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.Js
+- **Linguagem:** TypeScript
+- **Bibliotecas:** [ Axios, yup, Bulma.css, Auth.js, etc.]
 
-## Learn More
+ ## ``Autenticação``
 
-To learn more about Next.js, take a look at the following resources:
+A autenticação é realizada através do front-end, utilizando o login OAuth2 via GitHub. O sistema permite que os usuários se autentiquem usando suas credenciais do GitHub para acessar a aplicação.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
